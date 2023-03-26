@@ -2,10 +2,13 @@ import connection from "../config/bd.js";
 
 const getCar = async (req, res) => {
   try {
-    const { id } = req.query;
+    const { id, sucursalId } = req.query;
     const [result] = await (
       await connection
-    ).query(`SELECT * FROM cars WHERE id = ?`, `${id}`);
+    ).query(`SELECT * FROM cars WHERE id = ? AND sucursal_id = ?`, [
+      id,
+      sucursalId,
+    ]);
 
     return res.json({
       result,
@@ -18,10 +21,13 @@ const getCar = async (req, res) => {
 };
 const getEmployee = async (req, res) => {
   try {
-    const { username } = req.query;
+    const { username, sucursalId } = req.query;
     const [result] = await (
       await connection
-    ).query(`SELECT * FROM employees WHERE username = ?`, `${username}`);
+    ).query(`SELECT * FROM employees WHERE username = ? AND sucursal_id = ?`, [
+      username,
+      sucursalId,
+    ]);
 
     return res.json({
       result,
